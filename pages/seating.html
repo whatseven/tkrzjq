@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动排座 - 田可爱工作</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .file-input {
+            margin-bottom: 1rem;
+            display: block;
+            width: 100%;
+        }
+        .file-input::file-selector-button {
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 9999px;
+            background-color: rgba(255, 192, 203, 0.1);
+            color: rgb(219, 39, 119);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .file-input::file-selector-button:hover {
+            background-color: rgba(255, 192, 203, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen p-8">
+        <div class="mx-auto max-w-4xl bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-3xl font-bold text-center mb-8 text-pink-600">自动排座</h1>
+            
+            <input 
+                type="file" 
+                accept=".xlsx, .xls" 
+                class="file-input"
+                id="fileInput"
+            />
+            
+            <textarea
+                id="nameList"
+                placeholder="请输入名单（支持换行或逗号分隔）"
+                class="w-full h-48 p-4 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+            ></textarea>
+            
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div class="flex flex-col">
+                    <label class="text-gray-700 mb-2">设置行数（排数）：</label>
+                    <input
+                        type="number"
+                        id="rows"
+                        value="12"
+                        class="border border-pink-200 rounded-lg p-2"
+                        min="1"
+                    />
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-gray-700 mb-2">设置列数（每排座位数）：</label>
+                    <input
+                        type="number"
+                        id="columns"
+                        value="26"
+                        class="border border-pink-200 rounded-lg p-2"
+                        min="1"
+                    />
+                </div>
+            </div>
+
+            <div class="flex justify-center mt-6">
+                <button 
+                    id="arrangeButton"
+                    class="px-8 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
+                >
+                    排座
+                </button>
+                <button 
+                    id="clearButton"
+                    class="px-8 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors ml-4"
+                >
+                    清空
+                </button>
+            </div>
+
+            <div id="results" class="mt-8 overflow-x-auto hidden">
+                <h2 class="text-2xl font-semibold mb-6 text-pink-600">排座结果</h2>
+                <div class="text-center mb-4 text-gray-600">主席台</div>
+                <table id="seatingTable" class="w-full border-collapse"></table>
+                <div class="flex justify-center mt-6">
+                    <button 
+                        id="exportButton"
+                        class="px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                    >
+                        导出为Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver/dist/FileSaver.min.js"></script>
+    <script src="../scripts/seating.js"></script>
+</body>
+</html> 

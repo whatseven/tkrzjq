@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名单对比 - 田可爱工作</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .file-input {
+            margin-bottom: 1rem;
+            display: block;
+            width: 100%;
+        }
+        .file-input::file-selector-button {
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 9999px;
+            background-color: rgba(255, 192, 203, 0.1);
+            color: rgb(219, 39, 119);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .file-input::file-selector-button:hover {
+            background-color: rgba(255, 192, 203, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen p-8">
+        <div class="mx-auto max-w-4xl bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-3xl font-bold text-center mb-8 text-pink-600">名单对比</h1>
+            
+            <input 
+                type="file" 
+                accept=".xlsx, .xls" 
+                class="file-input"
+                id="fileInput"
+            />
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <textarea
+                        id="list1"
+                        placeholder="请输入名单1（支持换行、逗号、空格分隔）"
+                        class="w-full h-48 p-4 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    ></textarea>
+                </div>
+                <div>
+                    <textarea
+                        id="list2"
+                        placeholder="请输入名单2（支持换行、逗号、空格分隔）"
+                        class="w-full h-48 p-4 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    ></textarea>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-6">
+                <button 
+                    id="compareButton"
+                    class="px-8 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
+                >
+                    开始对比
+                </button>
+            </div>
+
+            <div id="results" class="mt-8 hidden">
+                <h2 class="text-2xl font-semibold mb-6 text-pink-600">对比结果</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-pink-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium mb-3 text-pink-700">名单1独有:</h3>
+                        <ul id="onlyInList1" class="space-y-2"></ul>
+                    </div>
+                    <div class="bg-pink-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium mb-3 text-pink-700">名单2独有:</h3>
+                        <ul id="onlyInList2" class="space-y-2"></ul>
+                    </div>
+                    <div class="bg-pink-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium mb-3 text-pink-700">重复名字:</h3>
+                        <ul id="inBoth" class="space-y-2"></ul>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-6">
+                    <button 
+                        id="exportButton"
+                        class="px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                    >
+                        导出为Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver/dist/FileSaver.min.js"></script>
+    <script src="../scripts/comparison.js"></script>
+</body>
+</html> 
