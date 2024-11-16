@@ -104,12 +104,14 @@ export default function ListComparison() {
 
       // 将工作表转换为 JSON 格式
       const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      const namesFromExcel = json.flat().map((name: unknown) => 
-        name?.toString().trim()
-      ).filter((name: string) => name.length > 0);
+      const namesFromExcel = json
+        .flat()
+        .map((name: unknown) => name?.toString().trim())
+        .filter((name): name is string => 
+          typeof name === 'string' && name.length > 0
+        );
       
-      // 将读取到的名字设置到输入框
-      setList1(namesFromExcel.join("\n")); // 假设将其放入名单1
+      setList1(namesFromExcel.join("\n"));
     };
 
     reader.readAsArrayBuffer(file);
